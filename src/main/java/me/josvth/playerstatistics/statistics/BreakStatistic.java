@@ -33,9 +33,9 @@ public class BreakStatistic extends Statistic {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (materials.isEmpty()) {
-            setScore(event.getPlayer(), getScore(event.getPlayer()) + 1);
+            setScore(event.getPlayer().getName(), getScore(event.getPlayer().getName()) + 1);
         } else if (materials.contains(event.getBlock().getType())) {
-            setScore(event.getPlayer(), getScore(event.getPlayer()) + 1);
+            setScore(event.getPlayer().getName(), getScore(event.getPlayer().getName()) + 1);
         }
     }
 

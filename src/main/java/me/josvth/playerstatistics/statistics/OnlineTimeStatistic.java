@@ -2,7 +2,6 @@ package me.josvth.playerstatistics.statistics;
 
 import me.josvth.playerstatistics.PlayerStatistics;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -20,7 +19,7 @@ public class OnlineTimeStatistic extends Statistic {
 
     private BukkitTask updateTask;
 
-    private Map<OfflinePlayer, Long> playTimes;
+    private Map<String, Long> playTimes;
 
     public OnlineTimeStatistic() {
         super("online-time");
@@ -53,7 +52,7 @@ public class OnlineTimeStatistic extends Statistic {
     @Override
     public void initialize(PlayerStatistics plugin) {
         super.initialize(plugin);
-        playTimes = new HashMap<OfflinePlayer, Long>();
+        playTimes = new HashMap<String, Long>();
         updateTask = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 
             long currentPeriod = -1;
@@ -85,12 +84,12 @@ public class OnlineTimeStatistic extends Statistic {
                 }
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    Long playTime = playTimes.get(player);
+                    Long playTime = playTimes.get(player.getName());
                     if (playTime == null) {
                         playTime = (long) 0;
                     }
-                    playTimes.put(player, playTime + intervalDuration);
-                    setScore(player, (int) (playTimes.get(player) / timeScale));
+                    playTimes.put(player.getName(), playTime + intervalDuration);
+                    setScore(player.getName(), (int) (playTimes.get(player.getName()) / timeScale));
                 }
 
             }
@@ -104,12 +103,12 @@ public class OnlineTimeStatistic extends Statistic {
             final ConfigurationSection scoreSection = section.getConfigurationSection("scores");
 
             for (String key : scoreSection.getKeys(false)) {
-                playTimes.put(Bukkit.getOfflinePlayer(key), scoreSection.getLong(key, 0));
-                Long playTime = playTimes.get(Bukkit.getOfflinePlayer(key));
+                playTimes.put(key, scoreSection.getLong(key, 0));
+                Long playTime = playTimes.get(key);
                 if (playTime == null) {
                     playTime = (long) 0;
                 }
-                setScore(Bukkit.getOfflinePlayer(key), (int) (playTime / timeScale));
+                setScore(key, (int) (playTime / timeScale));
             }
         }
     }
@@ -126,8 +125,8 @@ public class OnlineTimeStatistic extends Statistic {
             scoreSection = section.createSection("scores");
         }
 
-        for (Map.Entry<OfflinePlayer, Long> entry : playTimes.entrySet()) {
-            scoreSection.set(entry.getKey().getName(), entry.getValue());
+        for (Map.Entry<String, Long> entry : playTimes.entrySet()) {
+            scoreSection.set(entry.getKey(), entry.getValue());
         }
 
     }

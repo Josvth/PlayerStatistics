@@ -26,9 +26,9 @@ public class KillStatistic extends Statistic {
             return;
         }
         if (entityTypes.isEmpty()) {
-            setScore(event.getEntity().getKiller(), getScore(event.getEntity().getKiller()) + 1);
+            setScore(event.getEntity().getKiller().getName(), getScore(event.getEntity().getKiller().getName()) + 1);
         } else if (entityTypes.contains(event.getEntityType())) {
-            setScore(event.getEntity().getKiller(), getScore(event.getEntity().getKiller()) + 1);
+            setScore(event.getEntity().getKiller().getName(), getScore(event.getEntity().getKiller().getName()) + 1);
         }
     }
     public static KillStatistic deserialize(ConfigurationSection section) {

@@ -17,7 +17,7 @@ public abstract class Statistic implements Listener {
 
     protected Objective objective;
 
-    protected Map<OfflinePlayer, Score> scores;
+    protected Map<String, Score> scores;
 
     private String name;
     private String displayName;
@@ -58,7 +58,7 @@ public abstract class Statistic implements Listener {
         if (displayName != null) {
             objective.setDisplayName(displayName);
         }
-        scores = new HashMap<OfflinePlayer, Score>();
+        scores = new HashMap<String, Score>();
     }
 
     public void load(ConfigurationSection section) {
@@ -67,7 +67,7 @@ public abstract class Statistic implements Listener {
             ConfigurationSection scoreSection = section.getConfigurationSection("scores");
 
             for (String key : scoreSection.getKeys(false)) {
-                setScore(Bukkit.getOfflinePlayer(key), scoreSection.getInt(key, 0));
+                setScore(key, scoreSection.getInt(key, 0));
             }
         }
     }
@@ -84,8 +84,8 @@ public abstract class Statistic implements Listener {
             scoreSection = section.createSection("scores");
         }
 
-        for (Map.Entry<OfflinePlayer, Score> entry : getScores().entrySet()) {
-            scoreSection.set(entry.getKey().getName(), entry.getValue().getScore());
+        for (Map.Entry<String, Score> entry : getScores().entrySet()) {
+            scoreSection.set(entry.getKey(), entry.getValue().getScore());
         }
 
     }
@@ -98,11 +98,11 @@ public abstract class Statistic implements Listener {
         return objective;
     }
 
-    public Map<OfflinePlayer, Score> getScores() {
+    public Map<String, Score> getScores() {
         return scores;
     }
 
-    public int getScore(OfflinePlayer player) {
+    public int getScore(String player) {
 
         Score score = scores.get(player);
 
@@ -114,22 +114,17 @@ public abstract class Statistic implements Listener {
 
     }
 
-    public boolean hasScore(OfflinePlayer player) {
-        return scores.containsKey(player);
-    }
-
-    public void setScore(OfflinePlayer player, int value) {
+    public void setScore(String player, int value) {
 
         Score score = scores.get(player);
 
         if (score == null) {
-            score = objective.getScore(player);
+            score = objective.getScore(Bukkit.getOfflinePlayer(player));
             scores.put(player, score);
         }
 
         score.setScore(value);
 
     }
-
 
 }

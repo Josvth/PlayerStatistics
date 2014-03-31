@@ -3,7 +3,6 @@ package me.josvth.playerstatistics.tasks;
 import me.josvth.playerstatistics.PlayerStatistics;
 import me.josvth.playerstatistics.statistics.Statistic;
 import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
 
 public class CarouselTask implements Runnable {
 

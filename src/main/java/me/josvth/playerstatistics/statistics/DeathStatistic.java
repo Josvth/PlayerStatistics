@@ -1,7 +1,6 @@
 package me.josvth.playerstatistics.statistics;
 
 import me.josvth.playerstatistics.PlayerStatistics;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +26,7 @@ public class DeathStatistic extends Statistic {
 
         final Player player = (Player) event.getEntity();
 
-        setScore(player, getScore(player) + 1);
+        setScore(player.getName(), getScore(player.getName()) + 1);
 
     }
 
