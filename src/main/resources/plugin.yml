@@ -1,0 +1,8 @@
+main: me.josvth.playerstatistics.PlayerStatistics
+name: PlayerStatistics
+version: 0.1
+author: Josvth
+commands:
+  stats:
+    description: 'Turns the stats on'
+    usage: '/stats on|off'

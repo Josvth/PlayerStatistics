@@ -1,0 +1,62 @@
+saver-interval: 6000
+carousel-interval: 200
+statistics:
+  death:
+    type: death
+    settings:
+      display-name: 'Deaths:'
+  break-ore:
+    type: break
+    settings:
+      display-name: 'Ores broken:'
+      materials:
+      - DIAMOND_ORE
+      - EMERALD_ORE
+      - LAPIS_ORE
+      - REDSTONE_ORE
+      - GLOWING_REDSTONE_ORE
+      - GOLD_ORE
+      - IRON_ORE
+      - COAL_ORE
+  break-diamond:
+    type: break
+    settings:
+      display-name: 'Diamonds broken:'
+      materials:
+      - DIAMOND_ORE
+  kill-mobs:
+    type: kill
+    settings:
+      display-name: 'Mobs killed:'
+      entities:
+      - CREEPER
+      - SKELETON
+      - ZOMBIE
+      - SLIME
+      - GHAST
+      - PIG_ZOMBIE
+      - ENDERMAN
+  kill-harmless:
+    type: kill
+    settings:
+      display-name: 'Harmless animals killed:'
+      entities:
+      - COW
+      - SHEEP
+      - PIG
+      - BAT
+      - CHICKEN
+      - SQUID
+  time-total:
+    type: online-time
+    settings:
+      display-name: 'Time total (hours):'
+      time-period: -1
+      time-scale: 3600000
+  time-today:
+    type: online-time
+    settings:
+      display-name: 'Time today (hours):'
+      time-period: 8640000000
+      time-scale: 3600000
+version: '0.1'
